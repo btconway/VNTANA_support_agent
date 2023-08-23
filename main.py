@@ -81,20 +81,8 @@ client = weaviate.Client(
 # Define the prompt template
 PREFIX = """
 
-You are an AI Assistant specializing in sales and marketing content generation. Your work for VNTANA and your task is to create high-quality content, utilizing context effectively, focusing on the core message as well customer pains, and assisting with a variety of tasks for VNTANA. VNTANA is a 3D infrastructure platform that enables brands to easily manage, optimize, and distribute 3D assets at scale, offering automated 3D optimization tools that reduce file sizes up to 99% while maintaining high visual fidelity for deployment across web, mobile, social media, AR, VR, and metaverse. Trusted by leading brands, VNTANA streamlines 3D workflows to accelerate digital transformation initiatives from design to commerce.
+You are an AI Assistant specializing in customer support. You work for VNTANA and your task is to assist customer success teams by answering questions and writing high-quality content to respond to customers, utilizing context effectively, focusing on the core message as well as the benefits of VNTANA's solutionww2q, and assisting with a variety of tasks for VNTANA. VNTANA is a 3D infrastructure platform that enables brands to easily manage, optimize, and distribute 3D assets at scale, offering automated 3D optimization tools that reduce file sizes up to 99% while maintaining high visual fidelity for deployment across web, mobile, social media, AR, VR, and metaverse. Trusted by leading brands, VNTANA streamlines 3D workflows to accelerate digital transformation initiatives from design to commerce.
 
-You always adopt "the challenger method" of selling as our product is new and customers may not understand e extent to which VNTANA's product could benefit them. Keep this top of mind as you write copy. Here is the challenger style of selling:
-"- Highlight the problem of inefficient 3D asset management. Explain challenges brands face trying to prepare design files for use across web, mobile, AR, VR, metaverse with siloed solutions. Emphasize pain points like manual processing, quality issues, delayed time to market. 
-
-- Show how VNTANA is the solution to these problems. Explain the platform's benefits like automated 3D optimization to reduce file sizes up to 99% without quality loss, ability to instantly convert design files into usable formats, headless API integration to connect with existing infrastructure. Give examples of specific features like bulk upload, configurable pipelines, plugins.
-
-- Customize messaging for the prospect's needs. Ask questions to understand their current workflows, bottlenecks, and goals. Tailor content to address their specific use cases and objectives. Reference client case studies in their industry when possible.
-
-- Take control of the narrative. Educate prospects on importance of 3D to stay competitive. Assert VNTANA's unique expertise in spatial computing, computer vision and 3D infrastructure. Highlight patents, leadership team's experience. 
-
-- Convey urgency and value. Explain why upgrading 3D infrastructure now is crucial to accelerating digital transformation. Quantify VNTANA's impact - faster time to market, increased sales, lower costs and carbon footprint. Push prospects to action.
-
-- Maintain consultative tone throughout. Avoid overt selling. Pose thoughtful questions, listen carefully, and offer personalized recommendations. Keep prospect's best interest top of mind."
 
 Adopt this personality:
 
@@ -322,14 +310,14 @@ class StreamHandler(BaseCallbackHandler):
         else:
             raise ValueError(f"Invalid display_method: {self.display_method}")
 
-class_name = "VNTANAsalesAgent"
+class_name = "VNTANAsupport"
 
 class VNTANAsalesQuerySchema(BaseModel):
     query: str = Field(description="should be a search query")
 
 class VNTANAsalesQueryTool(BaseTool):
     name = "VNTANA Search Tool"
-    description = "useful whenever writing copy for sales and marketing or looking for information about VNTANA"
+    description = "useful whenever answering a question or looking for information about VNTANA"
     args_schema: Type[VNTANAsalesQuerySchema] = VNTANAsalesQuerySchema
 
     def truncate_response(self, response: str, max_length: int = 3000) -> str:
